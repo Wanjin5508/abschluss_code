@@ -1,0 +1,8 @@
+faiss_cpu==1.12.0
+numpy<2.3.0
+pdfplumber==0.11.7
+Pillow==11.3.0
+pytesseract==0.3.13
+rank_bm25==0.2.2
+regex==2024.11.6
+sentence_transformers==5.1.0
