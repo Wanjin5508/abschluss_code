@@ -1,5 +1,5 @@
 import openai
-import requests
+import requests # 原生的请求库
 from tenacity import retry, wait_random_exponential, stop_after_attempt
 from termcolor import colored
 
@@ -52,7 +52,7 @@ def chat_completion_request(messages, functions=None, function_call=None, model=
         print(f"Exception: {e}")
         return e
 
-
+# * 彩色打印文本
 # 定义一个函数pretty_print_conversation, 用于打印消息对话内容
 def pretty_print_conversation(messages):
     # 为不同角色设置不同的颜色
@@ -86,7 +86,7 @@ def pretty_print_conversation(messages):
             print(colored(f"function ({message['name']}): {message['content']}\n", role_to_color[message["role"]]))
 
 
-# 定义一个名为functions的列表, 其中包含两个字典, 这两个字典分别定义了两个功能的相关参数
+# * 定义一个名为functions的列表, 其中包含两个字典, 这两个字典分别定义了两个功能的相关参数
 # 第一个字典定义了一个名为"get_current_weather"的功能
 functions = [
     {

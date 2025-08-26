@@ -9,7 +9,7 @@ class Models:
     clip_embedding: str = "sentence-transformers/clip-ViT-B-32"     # 512维度
 
     # 本地 Ollama 模型名称（你使用的是 gemma3:4b）
-    ollama_model: str = "gemma3:4b"
+    ollama_model: str = "qwen2.5:latest"   # "gemma3:4b"
 
 @dataclass
 class Settings:
@@ -23,13 +23,13 @@ class Settings:
     top_k_candidates: int = 12
 
     # 最终用于生成上下文的 chunk 数量
-    final_contexts: int = 6
+    final_contexts: int = 10
 
     # 是否启用 BM25 检索补充
     use_bm25: bool = True
 
     # 生成时最大拼接的上下文字符数
-    max_context_chars: int = 16000
+    max_context_chars: int = 30000
 
 models = Models()
 settings = Settings()

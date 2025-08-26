@@ -55,7 +55,7 @@ def reciprocal_rank_fusion(results: List[List[Tuple[str, float]]], k: int = 60) 
             score_map[doc_id] = score_map.get(doc_id, 0) + 1 / (k + rank + 1)
     return sorted(score_map.items(), key=lambda x: x[1], reverse=True)
 
-def retrieve(query: str, workdir: str, top_k: int = 12) -> List[Dict]:
+def retrieve(query: str, workdir: str, top_k: int = 15) -> List[Dict]:
     corpus = load_corpus(workdir)
 
     # 加载模型
@@ -97,11 +97,12 @@ def retrieve(query: str, workdir: str, top_k: int = 12) -> List[Dict]:
     # 返回对应 chunk
     return [corpus[doc_id] for doc_id in top_ids if doc_id in corpus]
 
-def build_context(chunks: List[Dict], max_chars: int = 16000) -> str:
+def build_context(chunks: List[Dict], max_chars: int = 30000) -> str:
     blocks = []
     total = 0
     for ch in chunks:
-        label = f"[{ch['type']}] (Page {ch.get('page', '?')})"
+        # label = f"[{ch['type']}] (Page {ch.get('page', '?')})"
+        label = f"[Page {ch.get('page', '?')}] ({ch['type']})"
         content = ch.get("content", "").strip()
         if ch["type"] == "image":
             img_path = ch.get("meta", {}).get("image_path", "")

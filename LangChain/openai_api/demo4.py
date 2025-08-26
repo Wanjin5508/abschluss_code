@@ -7,7 +7,7 @@ import os
 os.environ['OPENAI_API_KEY'] = ''
 
 
-'''
+
 input_datapath = "data/fine_food_reviews_1k.csv"
 df = pd.read_csv(input_datapath, index_col=0)
 df = df[["Time", "ProductId", "UserId", "Score", "Summary", "Text"]]
@@ -31,13 +31,12 @@ embedding_encoding = "cl100k_base"
 # text-embedding-ada-002 模型支持的输入最大 Token 数是8191，向量维度 1536
 # 在我们的 DEMO 中过滤 Token 超过 8000 的文本
 max_tokens = 8000  
-'''
+
 
 # 直接访问OpenAI的方式, GPT-4o
 client = OpenAI(api_key='')
 
 
-'''
 # 设置要筛选的评论数量为1000
 top_n = 1000
 # 对DataFrame进行排序, 基于"Time"列, 然后选取最后的2000条评论。
@@ -57,7 +56,6 @@ df = df[df.n_tokens <= max_tokens].tail(top_n)
 
 # 打印出剩余评论的数量。
 # print(len(df))
-'''
 
 # 实际生成会耗时几分钟
 # 提醒: 非必须步骤, 可直接复用项目中的嵌入文件 fine_food_reviews_with_embeddings_1k
@@ -92,13 +90,13 @@ assert df_embedded['embedding_vec'].apply(len).nunique() == 1
 # matrix = np.vstack(df_embedded['embedding_vec'].values)
 
 
-# 计算余弦相似度的函数
+# 计算余弦相似度的函数 --> 按照公式计算
 def cosine_similarity(embed1, embed2):
     cosine_sim = np.dot(embed1, embed2) / (np.linalg.norm(embed1) * np.linalg.norm(embed2))
     return cosine_sim
 
 
-# 定义一个名为search_reviews的函数
+# * 定义一个名为search_reviews的函数
 # Pandas DataFrame 产品描述, 数量, 以及一个pprint标志(默认值为True)
 def search_reviews(df, product_description, n=3, pprint=True):
     product_embedding = get_embedding(product_description, model="text-embedding-ada-002")
@@ -107,7 +105,7 @@ def search_reviews(df, product_description, n=3, pprint=True):
 
     results = (
         df.sort_values("similarity", ascending=False)
-        .head(n)
+        .head(n)  # 获取最相似的n条评论
         .combined.str.replace("Title: ", "")
         .str.replace("; Content:", ": ")
     )
