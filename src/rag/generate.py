@@ -2,11 +2,6 @@ from retrieve import retrieve, build_context
 import requests
 from config import models
 
-# SYSTEM_PROMPT = """You are a product manual assistant. You must answer questions **only** based on the provided content:
-# - If the answer cannot be found in the content, say "The manual does not contain relevant information."
-# - When answering, include the original page number in brackets, such as [Page 66].
-# - Your answer should be as detailed and complete as possible. Include relevant instructions, causes, and possible solutions if available.
-# """
 
 SYSTEM_PROMPT = """You are a product manual assistant. Only answer based on the provided manual excerpts below:
 - If you cannot find an answer from the content, say: "The manual does not contain relevant information."

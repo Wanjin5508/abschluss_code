@@ -22,7 +22,8 @@ class Settings:
     # 检索候选数量（RRF 前的 top_k）
     top_k_candidates: int = 12
 
-    # 最终用于生成上下文的 chunk 数量
+    # 最终用于生成上下文的 chunk 数量 --> 这个参数要设定为合适的值, 
+    # 过大容易检索出相关性低的文本, 过小导致召回率低
     final_contexts: int = 10
 
     # 是否启用 BM25 检索补充
